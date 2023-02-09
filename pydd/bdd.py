@@ -255,9 +255,37 @@ class BDD:
             return self.make(v=min_var, n1=self.disjunction(w10, w11), n0=self.disjunction(w00, w01))
 
     def node_from_variable(self, v: BDDVariable):
+        """
+        Creates a node for the given variable
+
+        Parameters
+        ----------
+        v: BDDVariable
+            Variable
+
+        Returns
+        -------
+        int
+
+        """
         return self.make(v, self.get_one_node(), self.get_zero_node())
 
     def create_variable_node(self, name, is_primed=False):
+        """
+        Returns a node that is labeled with a fresh new variable
+
+        Parameters
+        ----------
+        name: str
+            Name of new variable
+        is_primed: bool
+            Determines whether the variable is primed
+
+        Returns
+        -------
+        int
+
+        """
         v = self.create_variable(name, is_primed=is_primed)
         return self.node_from_variable(v)
 
@@ -288,7 +316,15 @@ class BDD:
             del self._row_to_node[row]
             del self._node_to_row[node]
 
-    def to_dot(self):
+    def to_dot(self) -> str:
+        """
+        Returns the BDD as str representation in dot format
+
+        Returns
+        -------
+        str
+
+        """
         def node_to_label(n):
             if n == self.get_one_node() or n == self.get_zero_node():
                 return str(n)
